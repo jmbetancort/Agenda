@@ -1,0 +1,19 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.blackfont{
+    font-weight: bold;
+}
+#trendding{
+    border-right: 1px solid #000000;
+    padding-right: 5px;
+}
+#trendding, #recents, .fa-arrow-left, .fa-arrow-right,
+.gifs-wanted, .gifs-user{
+    cursor: pointer;
+}
+.cover-page, .cover-page img{
+    width: 100%;
+    height: 200px;
+}
