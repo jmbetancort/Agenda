@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="container-users">
+        <div class="user" ng-repeat="user in users">
+            <div class="img">
+                <img src="{{user.photo}}" width="150px" height="150px">
+            </div>
+            <div class="descrip-user">
+                <p><b><i class="fa fa-user-circle" aria-hidden="true"></i> Name: </b> {{user.name}}</p>
+                <p><b><i class="fa fa-mobile" aria-hidden="true"></i> Phone: </b> {{user.phone}}</p>
+                <p>Have {{user.numGifs}} favorite gifs</p>
+                <p>Have {{user.numComics}} favorite comics</p>
+                <span class="control-user">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="container-panel">
+        <div class="nav-panel">
+            <span>New</span>
+            <div class="options">
+                <button class="btn" id="btn-data" ng-class="{ btn-select: optionSelected == 'data'}" ng-click="selectBtn('data')">Data</button>
+                <button class="btn" id="btn-gifs" ng-class="{ btn-select: optionSelected == 'gifs'}" ng-click="selectBtn('gifs')">Gifs</button>
+                <button class="btn" id="btn-comics" ng-class="{ btn-select: optionSelected == 'comics'}" ng-click="selectBtn('comics')">Comics</button>
+            </div>
+        </div>
+        <div class="panel-data" ng-show="optionSelected == 'data'">
+            <form name="editUser" novalidate>
+                <div class="form-group">
+                    <p><b>Name</b></p>
+                    <input type="text" name="name" placeholder="Enter name....">
+                </div>
+                <div class="form-group">
+                    <p><b>Email</b></p>
+                    <input type="email" name="email" placeholder="Enter email....">
+                </div>
+                <div class="form-group">
+                    <p><b>Phone</b></p>
+                    <input type="phone" name="phone" placeholder="Enter phone....">
+                </div>
+                <div class="form-group">
+                    <p><b>Photo</b></p>
+                    <input type="url" name="photo" placeholder="Enter url photo....">
+                </div>
+            </form>
+        </div>
+        <div class="panel-gifs" ng-show="optionSelected == 'gifs'">
+            <p>Favorite gifs</p>
+            <div class="gifs-fav">
+                <div ng-repeat="gif in gifs"><img src="{{gif.url}}" width="60px" height="60px"></div>
+            </div>
+            <div class="gifs-search">
+                <input type="text" ng-model="nameGifs" name="search" id="searchGifs" placeholder="Search gif ...">
+                <span id="trendding" ng-click="optionSearch('tredding')">trendding</span><span id="recents" ng-click="optionSearch('recents')">recents</span>
+                <button class="btn-search" ng-click="searchGifs(nameGifs)">Search</button>
+            </div>
+            <div class="gifs-api">
+                <div><i class="fa fa-arrow-left fa-4x" aria-hidden="true"></i></div>
+                <div class="gifs-wanted" ng-repeat="gifwanted in gifswanted"><img src="{{gifwanted.url}}" width="60px" height="60px"></div>
+                <div><i class="fa fa-arrow-right fa-4x" aria-hidden="true"></i></div>
+            </div>
+        </div>
+        <div class="panel-comic" ng-show="optionSelected == 'comics'">
+            <p>Marvel's favorite comics</p>
+            <div class="comics-fav">
+                <div ng-repeat="comic in comics"><img src="{{comic.url}}" width="60px" height="60px"></div>
+            </div>
+        </div>
+        <div class="foot-panel">
+            <button class="btn-save" name="save">Save</button>
+        </div>
+    </div>
+</div>
