@@ -11,7 +11,7 @@
             get: get,
             modify: modify,
             remove: remove,
-            addUser: addUser
+            addUser: addUser,
         }
 
         function getAll() {
@@ -35,8 +35,24 @@
 
         function get() {}
 
-        function modify() {}
+        function modify(user) {
+            var users = getAll();
+            users.forEach(function(element,position){
+                if (user.id == element.id){
+                    users[position] = user;
+                }
+            })
+            localStorage.setItem('users',JSON.stringify(users));
+        }
 
-        function remove() {}
+        function remove(user) {
+            var users = getAll();
+            users.forEach(function (element,position){
+                if (user.id == element.id){
+                    users.splice(position,1);
+                }
+            })
+            localStorage.setItem('users',JSON.stringify(users));
+        }
     }
 })();

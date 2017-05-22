@@ -1,21 +1,26 @@
 <div class="cover-page">
-    <img src="https://s-media-cache-ak0.pinimg.com/originals/8b/d8/61/8bd86185caf48230da2fd39cde9c6477.jpg">
+    <img src="https://www.fullextremo.com/uploads/monthly_2016_09/anonymous.jpg.2f993e8dbd327eb3ea78558d0c250dff.jpg">
 </div>
 <div class="container">
     <div class="container-users">
-        <div class="user" ng-repeat="user in users">
+        <div class="user" ng-repeat="user in users track by user.id">
             <div class="img">
-                <img src="{{user.photo}}" width="150px" height="150px">
+                <img ng-src="{{user.photo}}" width="150px" height="150px">
             </div>
             <div class="descrip-user">
                 <p><b><i class="fa fa-user-circle" aria-hidden="true"></i> Name: </b> {{user.name}}</p>
                 <p><b><i class="fa fa-mobile" aria-hidden="true"></i> Phone: </b> {{user.phone}}</p>
-                <p>Have {{user.gifs.length}} favorite gifs</p>
-                <p>Have {{user.comics.length}} favorite comics</p>
+                <div class="user-group"><img src="http://icons.veryicon.com/png/File%20Type/Set%20Icons%20Aperture%20Image%20File/gif.png" height="20px"
+                        width="16px">
+                    <p>Have {{user.gifs.length}} favorite gifs </p>
+                </div>
+                <div class="user-group"><img src="https://image.flaticon.com/icons/png/512/280/280941.png" height="20px" width="16px">
+                    <p>Have {{user.comics.length}} favorite comics </p>
+                </div>
                 <span class="control-user">
                     <i class="fa fa-eye" aria-hidden="true"></i>
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    <i ng-click="editUser(user)" class="fa fa-pencil" aria-hidden="true"></i>
+                    <i class="fa fa-trash" aria-hidden="true" ng-click="deleteUser(user)"></i>
                 </span>
             </div>
         </div>
@@ -24,13 +29,13 @@
         <div class="nav-panel">
             <span>New</span>
             <div class="options">
-                <button class="btn" id="btn-data" ng-class="{ btn-select: optionSelected == 'data'}" ng-click="selectBtn('data')">Data</button>
-                <button class="btn" id="btn-gifs" ng-class="{ btn-select: optionSelected == 'gifs'}" ng-click="selectBtn('gifs')">Gifs</button>
-                <button class="btn" id="btn-comics" ng-class="{ btn-select: optionSelected == 'comics'}" ng-click="selectBtn('comics')">Comics</button>
+                <button id="btn-data" ng-class="{btnSelect: optionSelected == 'data', btn: optionSelected != 'data'}" ng-click="selectBtn('data')">Data</button>
+                <button class="btn" id="btn-gifs" ng-class="{btnSelect: optionSelected == 'gifs', btn: optionSelected != 'gifs'}" ng-click="selectBtn('gifs')">Gifs</button>
+                <button class="btn" id="btn-comics" ng-class="{btnSelect: optionSelected == 'comics', btn: optionSelected != 'comics'}" ng-click="selectBtn('comics')">Comics</button>
             </div>
         </div>
         <div class="panel-data" ng-show="optionSelected == 'data'">
-            <form name="editUser" novalidate>
+            <form name="createUser" novalidate>
                 <div class="form-group">
                     <p><b>Name</b></p>
                     <input ng-model="newUser.name" type="text" name="name" placeholder="Enter name....">
@@ -41,7 +46,7 @@
                 </div>
                 <div class="form-group">
                     <p><b>Phone</b></p>
-                    <input ng-model="newUser.phone"type="phone" name="phone" placeholder="Enter phone....">
+                    <input ng-model="newUser.phone" type="phone" name="phone" placeholder="Enter phone....">
                 </div>
                 <div class="form-group">
                     <p><b>Photo</b></p>
@@ -51,31 +56,51 @@
         </div>
         <div class="panel-gifs" ng-show="optionSelected == 'gifs'">
             <p>Favorite gifs</p>
-            <div class="gifs-fav">
-                <div class="gifs-user" ng-click="removeToFavoriteGif(gif)" ng-repeat="gif in newUser.gifs"><img src="{{gif}}" width="60px" height="60px"></div>
+            <div class="gifs-fav" ng-if="isFavoriteContentGif">
+                <div class="gifs-user">
+                    <div ng-click="removeToFavorite(gif,'gifs')" ng-repeat="gif in newUser.gifs"><img ng-src="{{gif}}" width="60px" height="60px"></div>
+                </div>
             </div>
             <div class="gifs-search">
-                <input type="text" ng-model="nameGifs" name="search" id="searchGifs" placeholder="Search gif ...">
                 <div>
-                    <span id="trendding" ng-class="{ blackfont: sort == 'relevant'}" ng-click="optionSearch('relevant')">trendding</span>
-                    <span id="recents" ng-class="{ blackfont: sort == 'recent'}" ng-click="optionSearch('recent')">recents</span>
+                    <input type="text" ng-model="nameGifs" name="search" id="searchGifs" placeholder="Search gif ...">
+                    <div>
+                        <span id="trendding" ng-class="{ blackfont: sort == 'relevant'}" ng-click="optionSearch('relevant')">trendding</span>
+                        <span id="recents" ng-class="{ blackfont: sort == 'recent'}" ng-click="optionSearch('recent')">recents</span>
+                    </div>
                 </div>
-                <button class="btn-search" ng-click="searchGifs(nameGifs)">Search</button>
+                <div class="gifsSearchBtn"><button class="btn-search" ng-click="searchGifs(nameGifs,0)">Search <i class="fa fa-search" aria-hidden="true"></i></button></div>
             </div>
             <div class="gifs-api" ng-if="searchDone">
-                <div><i class="fa fa-arrow-left fa-4x" ng-hide="offset <=0" ng-click="modeOffset(-8)" aria-hidden="true"></i></div>
-                <div class="gifs-wanted" ng-repeat="gifwanted in gifswanted" ng-click="addToFavoriteGif(gifwanted)"><img src="{{gifwanted}}" width="60px" height="60px"></div>
-                <div><i class="fa fa-arrow-right fa-4x" ng-show="offset >= 0" ng-click="modeOffset(8)" aria-hidden="true"></i></div>
+                <div class="arrow"><i class="fa fa-chevron-circle-left fa-4x" ng-hide="offset <=0" ng-click="modeOffset(-8)" aria-hidden="true"></i></div>
+                <div class="gifs-wanted">
+                    <div ng-repeat="gifwanted in gifswanted" ng-click="addToFavoriteGif(gifwanted)"><img ng-src="{{gifwanted}}" width="60px" height="60px"></div>
+                </div>
+                <div class="arrow"><i class="fa fa-chevron-circle-right fa-4x" ng-show="offset >= 0" ng-click="modeOffset(8)" aria-hidden="true"></i></div>
             </div>
         </div>
         <div class="panel-comic" ng-show="optionSelected == 'comics'">
             <p>Marvel's favorite comics</p>
-            <div class="comics-fav">
-                <div ng-repeat="comic in comics"><img src="{{comic.url}}" width="60px" height="60px"></div>
+            <div class="comics-fav" ng-if="isFavoriteContentComic">
+                <div class="comics-user">
+                    <div ng-click="removeToFavorite(comic,'comics')" ng-repeat="comic in newUser.comics track by $index"><img ng-src="{{comic.url}}" width="80px" height="80px"></div>
+                </div>
+            </div>
+            <div class="comic-search">
+                <input type="text" ng-model="nameComics" name="searchComic" id="searchComics" placeholder="Search comic starting with ...">
+                <button class="btn-search" ng-click="searchComics(nameComics,0)">Search <i class="fa fa-search" aria-hidden="true"></i></button>
+            </div>
+            <div class="comic-api" ng-if="searchDoneComic">
+                <div class="arrow"><i class="fa fa-chevron-circle-left fa-4x" ng-hide="offsetComic <=0" ng-click="modeOffsetComic(-3)" aria-hidden="true"></i></div>
+                <div class="comics-wanted">
+                    <div ng-repeat="comicwanted in comicswanted track by comicwanted.id" ng-click="addToFavoriteComic(comicwanted)"><img ng-src="{{comicwanted.url}}" width="70px" height="90px"></div>
+                </div>
+                <div class="arrow"><i class="fa fa-chevron-circle-right fa-4x" ng-show="offsetComic >= 0" ng-click="modeOffsetComic(3)" aria-hidden="true"></i></div>
             </div>
         </div>
         <div class="foot-panel">
-            <button class="btn-save" name="save" ng-click="saveNewUser(newUser)">Save</button>
+            <button ng-if="editing == false" class="btn-save" name="save" ng-click="saveNewUser(newUser)">Save</button>
+            <button ng-if="editing == true" class="btn-edit" name="edit" ng-click="modifyUser(newUser)">Edit</button>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-body{
+body, div, span, button, p, img{
     margin: 0;
     padding: 0;
 }
@@ -6,14 +6,228 @@ body{
     font-weight: bold;
 }
 #trendding{
-    border-right: 1px solid #000000;
+    border-right: 2px solid #FFFFFF;
     padding-right: 5px;
 }
-#trendding, #recents, .fa-arrow-left, .fa-arrow-right,
-.gifs-wanted, .gifs-user{
+#trendding, #recents, .fa-chevron-circle-right, .fa-chevron-circle-left,
+.gifs-wanted, .gifs-user, .control-user  i, .comics-wanted,
+.comics-user, .btn-search, .btn-save, .btn-edit{
     cursor: pointer;
 }
 .cover-page, .cover-page img{
     width: 100%;
     height: 200px;
+}
+.cover-page{
+    border: 2px groove #99CCFF;
+    border-bottom: none;
+}
+.container-panel{
+    border: 0.1em;
+    border-color: #99CCFF;
+    border-style: solid none solid solid;
+}
+.container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.container-users{
+    /*width: 65%;*/
+    flex: 7;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.container-panel, .container-users{
+    padding-top: 1em;
+}
+.user{
+    width: 450px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border: 2px groove #000066;
+    border-radius: 20px;
+    height: 300px;
+    margin:10px;
+}
+.user .img{
+    flex: 1;
+}
+.img img{
+    width: 100%;
+    height: 100%;
+}
+.user .descrip-user{
+    flex: 2;
+    background-color: #FFCC99;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.descrip-user p, .descrip-user .user-group{
+    padding-left: 1.5em;
+}
+.descrip-user .control-user{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.5em;
+    margin-right: 0.5em;
+}
+.control-user i{
+    padding-right: 0.5em;
+}
+.container-panel{
+    flex: 3;
+    background-color: #0A0A2A;
+    color: #FFFFFF;
+    padding: 15px;
+}
+.btnSelect{
+    background-color: #3399FF;
+    border: none;
+}
+.btn, .btnSelect, .btn-save, .btn-edit{
+    width: 80px;
+    font-size: 18px;
+}
+.btn-search{
+    width: 80px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #CD853F;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 2px 2px 1px #888888;
+}
+.btn{
+    background-color: #CCCC99;
+    border: 1px solid #99CCFF;
+}
+.btn-save, .btn-edit{
+    border: 1px solid #FFFFFF;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.btn-save{
+    background-color: #696969;
+}
+.btn-edit{
+    background-color: #483D8B;
+    color: #FFFFFF;
+}
+.user-group{
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+}
+.user-group p{
+    padding-left: 5px;
+    padding-top: 2px;
+}
+.gifs-api, .comic-api{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+}
+.arrow{
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+.gifs-wanted{
+    flex:4;
+}
+.comics-wanted, .gifs-wanted{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.comics-wanted{
+    flex:3;
+}
+.comics-user, .gifs-user{
+    overflow: auto;
+    height: 80px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.options{
+    display: flex;
+    justify-content: flex-end;
+}
+.nav-panel{
+    display: flex;
+    justify-content: space-between;
+}
+.nav-panel span{
+    flex:2;
+    font-size: 18px;
+    margin-right: 40px;
+    text-align: right;
+}
+.gifs-search{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.gifs-search div{
+    display: flex;
+    justify-content: flex-start;
+}
+.gifs-search div div{
+    margin-left: 25px;
+}
+#recents{
+    padding-left: 10px;
+}
+#trendding{
+    padding-right: 10px;
+}
+.gifs-search .gifsSearchBtn{
+    justify-content: flex-end;
+}
+.foot-panel{
+    display: flex;
+    justify-content: flex-end;
+}
+.form-group{
+    padding: 10px;
+}
+footer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    height: 40px;
+    border: 1px solid #0A0A2A;
+}
+.white{
+    flex:4;
+}
+.blue{
+    flex:4;
+    background-color: #0000FF;
+}
+.yellow{
+    flex:4;
+    background-color: #FFFF00;
 }
